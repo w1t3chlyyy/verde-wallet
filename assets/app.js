@@ -25,19 +25,13 @@ try {
 function updateUserUI() {
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
-    avatar.innerHTML = `
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#22C55E"/>
-        <path d="M12 6L14.5 11.5L20 12L14.5 14.5L12 20L9.5 14.5L4 12L9.5 11.5L12 6Z" fill="white" opacity="0.9"/>
-        <circle cx="12" cy="12" r="2" fill="#22C55E"/>
-      </svg>
-    `;
-    avatar.style.background = 'transparent';
+    const photoUrl = userData && userData.photo_url;
+    avatar.innerHTML = `<img src="${photoUrl || 'assets/logo.png'}" alt="Verde Wallet" class="avatar-img">`;
+    avatar.style.background = photoUrl ? 'var(--bg-card)' : 'transparent';
     avatar.style.boxShadow = 'none';
     avatar.style.display = 'flex';
     avatar.style.alignItems = 'center';
     avatar.style.justifyContent = 'center';
-    avatar.textContent = '';
   }
   
   const welcome = document.getElementById('welcomeMessage');

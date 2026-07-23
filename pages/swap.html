@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F7F9F4">
+<link rel="icon" href="../assets/logo.png">
+<title>Обмен — Verde Wallet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+<div class="mesh-bg">
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+</div>
+
+<div class="app">
+
+  <header class="page-header entrance">
+    <a href="../index.html" class="page-header-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <h1 class="page-header-title">Обмен</h1>
+  </header>
+
+  <div class="swap-card entrance entrance-d1">
+    <div class="swap-input-group">
+      <label>Отдаёте</label>
+      <div class="swap-input-wrap">
+        <input type="number" placeholder="0.0" id="fromAmount" oninput="calculateSwap()">
+        <div class="swap-token-select" onclick="selectToken('from')">
+          <div class="asset-icon asset-icon-usdt" style="width:28px;height:28px;font-size:12px;">$</div>
+          <span>USDT</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Баланс: 2,340 USDT</div>
+    </div>
+
+    <div class="swap-divider">
+      <button class="swap-divider-btn" onclick="reverseSwap()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+      </button>
+    </div>
+
+    <div class="swap-input-group">
+      <label>Получаете</label>
+      <div class="swap-input-wrap">
+        <input type="number" placeholder="0.0" id="toAmount" readonly>
+        <div class="swap-token-select" onclick="selectToken('to')">
+          <div class="asset-icon asset-icon-sol" style="width:28px;height:28px;font-size:12px;">S</div>
+          <span>SOL</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Баланс: 18.5 SOL</div>
+    </div>
+
+    <div class="swap-rate">
+      <span>Курс</span>
+      <span class="swap-rate-value">1 USDT = 0.00452 SOL</span>
+    </div>
+    <div class="swap-rate">
+      <span>Комиссия сети</span>
+      <span class="swap-rate-value">~$0.50</span>
+    </div>
+    <div class="swap-rate">
+      <span>Slippage</span>
+      <span class="swap-rate-value">0.5%</span>
+    </div>
+
+    <button class="sheet-btn" style="margin-top:8px;" onclick="executeSwap()">Обменять</button>
+  </div>
+
+  <div class="nav-spacer"></div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="../index.html" class="nav-item" data-tab="wallet">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+    </div>
+    <span>Кошелёк</span>
+  </a>
+  <a href="market.html" class="nav-item" data-tab="market">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    </div>
+    <span>Рынок</span>
+  </a>
+  <a href="swap.html" class="nav-item active" data-tab="swap">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+    </div>
+    <span>Обмен</span>
+  </a>
+  <a href="discover.html" class="nav-item" data-tab="discover">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <span>Обзор</span>
+  </a>
+  <a href="profile.html" class="nav-item" data-tab="profile">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <span>Профиль</span>
+  </a>
+</nav>
+
+<script>
+function calculateSwap() {
+  const from = document.getElementById('fromAmount');
+  const to = document.getElementById('toAmount');
+  if (!from || !to) return;
+  const val = parseFloat(from.value) || 0;
+  to.value = (val * 0.00452).toFixed(6);
+}
+function reverseSwap() {
+  const from = document.getElementById('fromAmount');
+  const to = document.getElementById('toAmount');
+  if (!from || !to) return;
+  const temp = from.value;
+  from.value = to.value;
+  to.value = temp;
+}
+function selectToken(side) {
+  showToast('Выбор токена: ' + side);
+}
+function executeSwap() {
+  const btn = document.querySelector('.sheet-btn');
+  if (!btn) return;
+  btn.textContent = '✓ Успешно';
+  btn.style.background = 'var(--green-500)';
+  setTimeout(() => {
+    btn.textContent = 'Обменять';
+    btn.style.background = '';
+    document.getElementById('fromAmount').value = '';
+    document.getElementById('toAmount').value = '';
+  }, 1500);
+}
+function showToast(message) {
+  const container = document.createElement('div');
+  container.className = 'toast-custom';
+  container.textContent = message;
+  document.body.appendChild(container);
+  setTimeout(() => container.remove(), 2200);
+}
+</script>
+</body>
+</html>

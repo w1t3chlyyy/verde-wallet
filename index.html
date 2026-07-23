@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F7F9F4">
+<link rel="icon" href="assets/logo.png">
+<meta name="description" content="Verde Wallet — криптокошелек в Telegram Mini App">
+<title>Verde Wallet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="https://telegram.org/js/telegram-web-app.js?1"></script>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="mesh-bg">
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+</div>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header entrance">
+    <div class="header-top">
+      <div class="header-avatar" onclick="goToPage('profile')"></div>
+      <div style="flex:1;text-align:center;font-weight:600;font-size:16px;color:var(--text-primary);" id="welcomeMessage">
+        Привет, Гость!
+      </div>
+      <button class="header-notif" onclick="showNotifications()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- BALANCE CARD -->
+  <section class="balance-section entrance entrance-d1">
+    <div class="balance-card" onclick="copyAddress()">
+      <div class="balance-label">Общий баланс</div>
+      <div class="balance-amount">
+        <span class="currency">$</span>
+        <span id="balanceValue">24,847.65</span>
+      </div>
+      <div class="balance-change">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        +12.4% за 24ч
+      </div>
+      <div class="balance-actions">
+        <button class="balance-btn balance-btn-primary" onclick="event.stopPropagation();openSheet('send')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Отправить
+        </button>
+        <button class="balance-btn balance-btn-secondary" onclick="event.stopPropagation();openSheet('receive')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/><line x1="21" y1="21" x2="3" y2="21"/></svg>
+          Получить
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK ACTIONS -->
+  <section class="quick-actions entrance entrance-d2" style="justify-content:center;">
+    <div class="quick-action" onclick="openSheet('swap')">
+      <div class="quick-action-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+      </div>
+      <span class="quick-action-label">Обмен</span>
+    </div>
+    <div class="quick-action" onclick="goToPage('staking')">
+      <div class="quick-action-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <span class="quick-action-label">Стейкинг</span>
+    </div>
+    <div class="quick-action" onclick="goToPage('buy')">
+      <div class="quick-action-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      </div>
+      <span class="quick-action-label">Купить</span>
+    </div>
+    <div class="quick-action" onclick="goToPage('bridge')">
+      <div class="quick-action-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+      </div>
+      <span class="quick-action-label">Мост</span>
+    </div>
+  </section>
+
+  <!-- ASSETS -->
+  <section class="assets-section entrance entrance-d3">
+    <div class="section-header">
+      <h2 class="section-title">Активы</h2>
+      <a href="pages/market.html" class="section-link">Все <span>&rsaquo;</span></a>
+    </div>
+    <div class="asset-list">
+      <div class="asset-item reveal" onclick="goToAsset('BTC')">
+        <div class="asset-icon asset-icon-btc">&#8383;</div>
+        <div class="asset-info">
+          <div class="asset-name">Bitcoin <span class="asset-ticker">BTC</span></div>
+          <div class="asset-balance">0.142 BTC</div>
+        </div>
+        <div class="asset-price">
+          <div class="asset-price-value">$12,840</div>
+          <div class="asset-price-change up">+5.2%</div>
+        </div>
+      </div>
+      <div class="asset-item reveal" onclick="goToAsset('ETH')">
+        <div class="asset-icon asset-icon-eth">&#926;</div>
+        <div class="asset-info">
+          <div class="asset-name">Ethereum <span class="asset-ticker">ETH</span></div>
+          <div class="asset-balance">4.28 ETH</div>
+        </div>
+        <div class="asset-price">
+          <div class="asset-price-value">$8,560</div>
+          <div class="asset-price-change up">+3.8%</div>
+        </div>
+      </div>
+      <div class="asset-item reveal" onclick="goToAsset('USDT')">
+        <div class="asset-icon asset-icon-usdt">$</div>
+        <div class="asset-info">
+          <div class="asset-name">Tether <span class="asset-ticker">USDT</span></div>
+          <div class="asset-balance">2,340 USDT</div>
+        </div>
+        <div class="asset-price">
+          <div class="asset-price-value">$2,340</div>
+          <div class="asset-price-change up">+0.01%</div>
+        </div>
+      </div>
+      <div class="asset-item reveal" onclick="goToAsset('SOL')">
+        <div class="asset-icon asset-icon-sol">S</div>
+        <div class="asset-info">
+          <div class="asset-name">Solana <span class="asset-ticker">SOL</span></div>
+          <div class="asset-balance">18.5 SOL</div>
+        </div>
+        <div class="asset-price">
+          <div class="asset-price-value">$1,107</div>
+          <div class="asset-price-change down">-1.2%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHART -->
+  <section class="chart-section reveal">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-asset">
+          <div class="chart-asset-icon">&#8383;</div>
+          <div>
+            <div class="chart-asset-name">Bitcoin</div>
+            <div class="chart-asset-price">$90,426.50</div>
+          </div>
+        </div>
+        <div class="chart-periods">
+          <button class="chart-period" onclick="setPeriod(this,'1H')">1Ч</button>
+          <button class="chart-period" onclick="setPeriod(this,'1D')">1Д</button>
+          <button class="chart-period active" onclick="setPeriod(this,'1W')">1Н</button>
+          <button class="chart-period" onclick="setPeriod(this,'1M')">1М</button>
+          <button class="chart-period" onclick="setPeriod(this,'1Y')">1Г</button>
+        </div>
+      </div>
+      <div class="chart-canvas" id="chartContainer">
+        <svg class="chart-svg" viewBox="0 0 370 180" preserveAspectRatio="none" id="priceChart">
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#22C55E" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#22C55E" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path id="chartArea" fill="url(#chartGrad)" d=""/>
+          <path id="chartLine" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d=""/>
+          <circle id="chartDot" cx="0" cy="0" r="5" fill="#fff" stroke="#22C55E" stroke-width="2" opacity="0" filter="drop-shadow(0 2px 4px rgba(34,197,94,0.4))"/>
+        </svg>
+        <div class="chart-tooltip" id="chartTooltip"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSACTIONS -->
+  <section class="tx-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">История</h2>
+      <a href="pages/history.html" class="section-link">Все <span>&rsaquo;</span></a>
+    </div>
+    <div class="tx-list">
+      <div class="tx-item" onclick="showTxDetail('tx1')">
+        <div class="tx-icon tx-icon-in">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/></svg>
+        </div>
+        <div class="tx-info">
+          <div class="tx-title">Получено BTC</div>
+          <div class="tx-subtitle">От 0x7a3...f2e1</div>
+        </div>
+        <div class="tx-amount">
+          <div class="tx-amount-value in">+0.05 BTC</div>
+          <div class="tx-time">2 мин назад</div>
+        </div>
+      </div>
+      <div class="tx-item" onclick="showTxDetail('tx2')">
+        <div class="tx-icon tx-icon-out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 11 12 6 17 11"/><polyline points="12 6 12 16"/></svg>
+        </div>
+        <div class="tx-info">
+          <div class="tx-title">Отправлено ETH</div>
+          <div class="tx-subtitle">На 0x9b2...a4c3</div>
+        </div>
+        <div class="tx-amount">
+          <div class="tx-amount-value out">-1.2 ETH</div>
+          <div class="tx-time">15 мин назад</div>
+        </div>
+      </div>
+      <div class="tx-item" onclick="showTxDetail('tx3')">
+        <div class="tx-icon tx-icon-swap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+        </div>
+        <div class="tx-info">
+          <div class="tx-title">Обмен USDT &rarr; SOL</div>
+          <div class="tx-subtitle">Через Jupiter</div>
+        </div>
+        <div class="tx-amount">
+          <div class="tx-amount-value out">-500 USDT</div>
+          <div class="tx-time">1 ч назад</div>
+        </div>
+      </div>
+      <div class="tx-item" onclick="showTxDetail('tx4')">
+        <div class="tx-icon tx-icon-in">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/></svg>
+        </div>
+        <div class="tx-info">
+          <div class="tx-title">Награда стейкинга</div>
+          <div class="tx-subtitle">Solana Validator</div>
+        </div>
+        <div class="tx-amount">
+          <div class="tx-amount-value in">+0.8 SOL</div>
+          <div class="tx-time">3 ч назад</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="nav-spacer"></div>
+
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item active" data-tab="wallet">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+    </div>
+    <span>Кошелёк</span>
+  </a>
+  <a href="pages/market.html" class="nav-item" data-tab="market">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    </div>
+    <span>Рынок</span>
+  </a>
+  <a href="pages/swap.html" class="nav-item" data-tab="swap">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+    </div>
+    <span>Обмен</span>
+  </a>
+  <a href="pages/discover.html" class="nav-item" data-tab="discover">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <span>Обзор</span>
+  </a>
+  <a href="pages/profile.html" class="nav-item" data-tab="profile">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <span>Профиль</span>
+  </a>
+</nav>
+
+<!-- ACTION SHEET MODAL -->
+<div class="overlay" id="actionSheet">
+  <div class="overlay-backdrop" onclick="closeSheet()"></div>
+  <div class="sheet" id="sheetPanel">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet()">&times;</button>
+    <h3 class="sheet-title" id="sheetTitle">Действие</h3>
+    <div id="sheetContent"></div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer"></div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

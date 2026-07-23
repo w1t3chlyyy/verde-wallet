@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F7F9F4">
+<link rel="icon" href="../assets/logo.png">
+<title>Купить — Verde Wallet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="https://telegram.org/js/telegram-web-app.js?1"></script>
+</head>
+<body>
+
+<div class="mesh-bg">
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+</div>
+
+<div class="app">
+
+  <header class="page-header entrance">
+    <a href="../index.html" class="page-header-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <h1 class="page-header-title">Купить крипту</h1>
+  </header>
+
+  <div class="swap-card entrance entrance-d1">
+    <div class="swap-input-group">
+      <label>Сумма (USD)</label>
+      <div class="swap-input-wrap">
+        <input type="number" placeholder="0.00" id="buyAmount" oninput="calculateBuy()">
+        <div class="swap-token-select">
+          <span style="font-weight:600;">USD</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swap-divider">
+      <button class="swap-divider-btn" style="background:var(--bg);color:var(--green-600);border:1px solid var(--border);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/></svg>
+      </button>
+    </div>
+
+    <div class="swap-input-group">
+      <label>Получаете</label>
+      <div class="swap-input-wrap">
+        <input type="number" placeholder="0.0" id="receiveAmount" readonly>
+        <div class="swap-token-select" onclick="selectBuyToken()">
+          <div class="asset-icon asset-icon-btc" style="width:28px;height:28px;font-size:12px;">&#8383;</div>
+          <span>BTC</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="swap-rate">
+      <span>Курс</span>
+      <span class="swap-rate-value">1 BTC = $90,426</span>
+    </div>
+    <div class="swap-rate">
+      <span>Комиссия</span>
+      <span class="swap-rate-value">1.5%</span>
+    </div>
+    <div class="swap-rate">
+      <span>Способ оплаты</span>
+      <span class="swap-rate-value" style="cursor:pointer;" onclick="selectPayment()">Карта &rsaquo;</span>
+    </div>
+
+    <button class="sheet-btn" style="margin-top:8px;" onclick="executeBuy()">Купить</button>
+  </div>
+
+  <div class="section-header" style="padding-top:8px;">
+    <h2 class="section-title">Способы оплаты</h2>
+  </div>
+  <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:8px;">
+    <div class="asset-item" onclick="selectPaymentMethod('card')">
+      <div class="asset-icon" style="width:40px;height:40px;font-size:16px;background:linear-gradient(135deg,#3B82F6,#60A5FA);color:#fff;">💳</div>
+      <div class="asset-info">
+        <div class="asset-name">Банковская карта</div>
+        <div class="asset-balance">Visa, Mastercard, МИР</div>
+      </div>
+    </div>
+    <div class="asset-item" onclick="selectPaymentMethod('sbp')">
+      <div class="asset-icon" style="width:40px;height:40px;font-size:16px;background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;">🏦</div>
+      <div class="asset-info">
+        <div class="asset-name">СБП</div>
+        <div class="asset-balance">Мгновенный перевод</div>
+      </div>
+    </div>
+    <div class="asset-item" onclick="selectPaymentMethod('apple')">
+      <div class="asset-icon" style="width:40px;height:40px;font-size:16px;background:linear-gradient(135deg,#0F172A,#334155);color:#fff;">🍎</div>
+      <div class="asset-info">
+        <div class="asset-name">Apple Pay</div>
+        <div class="asset-balance">Быстрая оплата</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-spacer"></div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="../index.html" class="nav-item" data-tab="wallet">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+    </div>
+    <span>Кошелёк</span>
+  </a>
+  <a href="market.html" class="nav-item" data-tab="market">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    </div>
+    <span>Рынок</span>
+  </a>
+  <a href="swap.html" class="nav-item" data-tab="swap">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+    </div>
+    <span>Обмен</span>
+  </a>
+  <a href="discover.html" class="nav-item" data-tab="discover">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <span>Обзор</span>
+  </a>
+  <a href="profile.html" class="nav-item" data-tab="profile">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <span>Профиль</span>
+  </a>
+</nav>
+
+<script>
+function calculateBuy() {
+  const buy = document.getElementById('buyAmount');
+  const receive = document.getElementById('receiveAmount');
+  if (!buy || !receive) return;
+  const val = parseFloat(buy.value) || 0;
+  receive.value = (val / 90426).toFixed(8);
+}
+function selectBuyToken() {
+  showToast('🔄 Выбор токена');
+}
+function selectPayment() {
+  showToast('💳 Выбор способа оплаты');
+}
+function selectPaymentMethod(method) {
+  showToast('✅ Выбрано: ' + method);
+}
+function executeBuy() {
+  const btn = document.querySelector('.sheet-btn');
+  if (!btn) return;
+  btn.textContent = '✓ Успешно';
+  btn.style.background = 'var(--green-500)';
+  setTimeout(() => {
+    btn.textContent = 'Купить';
+    btn.style.background = '';
+    document.getElementById('buyAmount').value = '';
+    document.getElementById('receiveAmount').value = '';
+  }, 1500);
+}
+function showToast(message) {
+  const container = document.createElement('div');
+  container.className = 'toast-custom';
+  container.textContent = message;
+  document.body.appendChild(container);
+  setTimeout(() => container.remove(), 2200);
+}
+</script>
+</body>
+</html>
