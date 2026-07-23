@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F7F9F4">
+<title>Рынок — Verde Wallet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+<div class="mesh-bg">
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+  <div class="mesh-orb"></div>
+</div>
+
+<div class="app">
+
+  <header class="page-header entrance">
+    <a href="../index.html" class="page-header-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <h1 class="page-header-title">Рынок</h1>
+  </header>
+
+  <div class="market-tabs entrance entrance-d1">
+    <button class="market-tab active" onclick="filterMarket(this,'all')">Все</button>
+    <button class="market-tab" onclick="filterMarket(this,'gainers')">Рост</button>
+    <button class="market-tab" onclick="filterMarket(this,'losers')">Падение</button>
+    <button class="market-tab" onclick="filterMarket(this,'favorites')">Избранное</button>
+  </div>
+
+  <div class="market-list">
+    <div class="market-item reveal" onclick="goToAsset('BTC')">
+      <div class="market-rank">1</div>
+      <div class="asset-icon asset-icon-btc" style="width:40px;height:40px;font-size:16px;">&#8383;</div>
+      <div class="market-info">
+        <div class="market-name">Bitcoin <span class="asset-ticker">BTC</span></div>
+        <div class="market-cap">$1.78T кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$90,426</div>
+        <div class="market-change up">+5.2%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('ETH')">
+      <div class="market-rank">2</div>
+      <div class="asset-icon asset-icon-eth" style="width:40px;height:40px;font-size:16px;">&#926;</div>
+      <div class="market-info">
+        <div class="market-name">Ethereum <span class="asset-ticker">ETH</span></div>
+        <div class="market-cap">$542B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$4,520</div>
+        <div class="market-change up">+3.8%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('SOL')">
+      <div class="market-rank">3</div>
+      <div class="asset-icon asset-icon-sol" style="width:40px;height:40px;font-size:16px;">S</div>
+      <div class="market-info">
+        <div class="market-name">Solana <span class="asset-ticker">SOL</span></div>
+        <div class="market-cap">$98B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$198</div>
+        <div class="market-change down">-1.2%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('TON')">
+      <div class="market-rank">4</div>
+      <div class="asset-icon asset-icon-ton" style="width:40px;height:40px;font-size:16px;">T</div>
+      <div class="market-info">
+        <div class="market-name">Toncoin <span class="asset-ticker">TON</span></div>
+        <div class="market-cap">$24B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$5.84</div>
+        <div class="market-change up">+8.4%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('USDT')">
+      <div class="market-rank">5</div>
+      <div class="asset-icon asset-icon-usdt" style="width:40px;height:40px;font-size:16px;">$</div>
+      <div class="market-info">
+        <div class="market-name">Tether <span class="asset-ticker">USDT</span></div>
+        <div class="market-cap">$138B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$1.00</div>
+        <div class="market-change up">+0.01%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('ADA')">
+      <div class="market-rank">6</div>
+      <div class="asset-icon" style="width:40px;height:40px;font-size:16px;background:linear-gradient(135deg,#0033AD,#0055FF);color:#fff;">A</div>
+      <div class="market-info">
+        <div class="market-name">Cardano <span class="asset-ticker">ADA</span></div>
+        <div class="market-cap">$18B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$0.52</div>
+        <div class="market-change down">-3.1%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('DOT')">
+      <div class="market-rank">7</div>
+      <div class="asset-icon" style="width:40px;height:40px;font-size:16px;background:linear-gradient(135deg,#E6007A,#FF0080);color:#fff;">D</div>
+      <div class="market-info">
+        <div class="market-name">Polkadot <span class="asset-ticker">DOT</span></div>
+        <div class="market-cap">$12B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$7.20</div>
+        <div class="market-change up">+2.4%</div>
+      </div>
+    </div>
+    <div class="market-item reveal" onclick="goToAsset('LINK')">
+      <div class="market-rank">8</div>
+      <div class="asset-icon" style="width:40px;height:40px;font-size:16px;background:linear-gradient(135deg,#2A5ADA,#375BD2);color:#fff;">L</div>
+      <div class="market-info">
+        <div class="market-name">Chainlink <span class="asset-ticker">LINK</span></div>
+        <div class="market-cap">$14B кап.</div>
+      </div>
+      <div class="market-price-block">
+        <div class="market-price">$18.40</div>
+        <div class="market-change up">+6.7%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-spacer"></div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="../index.html" class="nav-item" data-tab="wallet">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+    </div>
+    <span>Кошелёк</span>
+  </a>
+  <a href="market.html" class="nav-item active" data-tab="market">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    </div>
+    <span>Рынок</span>
+  </a>
+  <a href="swap.html" class="nav-item" data-tab="swap">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
+    </div>
+    <span>Обмен</span>
+  </a>
+  <a href="discover.html" class="nav-item" data-tab="discover">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <span>Обзор</span>
+  </a>
+  <a href="profile.html" class="nav-item" data-tab="profile">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <span>Профиль</span>
+  </a>
+</nav>
+
+<script>
+function goToAsset(asset) {
+  window.location.href = 'asset.html?coin=' + asset;
+}
+function filterMarket(btn, filter) {
+  document.querySelectorAll('.market-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function showToast(message) {
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#16A34A;color:#fff;padding:14px 28px;border-radius:16px;font-weight:600;font-size:14px;z-index:400;animation:fadeInOut 2.2s ease forwards;font-family:Inter;';
+  container.textContent = message;
+  document.body.appendChild(container);
+  setTimeout(() => container.remove(), 2200);
+}
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
