@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#F7F9F4">
-<title>Актив — Verde Wallet</title>
+<title>NFT — Verde Wallet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -24,86 +24,83 @@
 <div class="app">
 
   <header class="page-header entrance">
-    <a href="../index.html" class="page-header-back">
+    <a href="discover.html" class="page-header-back">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </a>
-    <h1 class="page-header-title" id="assetTitle">Bitcoin</h1>
+    <h1 class="page-header-title">NFT Маркетплейс</h1>
   </header>
 
-  <div style="text-align:center;padding:0 20px 24px;" class="entrance entrance-d1">
-    <div id="assetIcon" class="asset-icon asset-icon-btc" style="width:64px;height:64px;font-size:28px;margin:0 auto 16px;">&#8383;</div>
-    <div style="font-family:Space Grotesk;font-size:36px;font-weight:700;" id="assetPrice">$90,426.50</div>
-    <div class="asset-price-change up" style="margin-top:8px;display:inline-flex;">+5.2% за 24ч</div>
+  <div class="market-tabs entrance entrance-d1">
+    <button class="market-tab active" onclick="filterNft(this,'all')">Все</button>
+    <button class="market-tab" onclick="filterNft(this,'art')">Арт</button>
+    <button class="market-tab" onclick="filterNft(this,'collectibles')">Коллекции</button>
+    <button class="market-tab" onclick="filterNft(this,'gaming')">Игры</button>
   </div>
 
-  <div class="chart-section entrance entrance-d2">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div class="chart-periods">
-          <button class="chart-period" onclick="setPeriod(this,'1H')">1Ч</button>
-          <button class="chart-period" onclick="setPeriod(this,'1D')">1Д</button>
-          <button class="chart-period active" onclick="setPeriod(this,'1W')">1Н</button>
-          <button class="chart-period" onclick="setPeriod(this,'1M')">1М</button>
-          <button class="chart-period" onclick="setPeriod(this,'1Y')">1Г</button>
-        </div>
+  <div class="nft-grid">
+    <div class="nft-card reveal" onclick="showNftDetail('Verde Genesis #0421')">
+      <div class="nft-card-img">🎨</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Verde Genesis #0421</div>
+        <div class="nft-card-price">2.5 SOL</div>
       </div>
-      <div class="chart-canvas" id="chartContainer">
-        <svg class="chart-svg" viewBox="0 0 370 180" preserveAspectRatio="none" id="priceChart">
-          <defs>
-            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#22C55E" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#22C55E" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <path id="chartArea" fill="url(#chartGrad)" d=""/>
-          <path id="chartLine" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d=""/>
-          <circle id="chartDot" cx="0" cy="0" r="5" fill="#fff" stroke="#22C55E" stroke-width="2" opacity="0" filter="drop-shadow(0 2px 4px rgba(34,197,94,0.4))"/>
-        </svg>
-        <div class="chart-tooltip" id="chartTooltip"></div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Green Leaf #0892')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#9945FF,#14F195);">🌿</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Green Leaf #0892</div>
+        <div class="nft-card-price">1.8 SOL</div>
+      </div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Crypto Punk #1204')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#F7931A,#E67E00);">🔥</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Crypto Punk #1204</div>
+        <div class="nft-card-price">45 ETH</div>
+      </div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Diamond Hand #2567')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#627EEA,#4C63D2);">💎</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Diamond Hand #2567</div>
+        <div class="nft-card-price">12.5 ETH</div>
+      </div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Cyber Ape #3312')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#EC4899,#F472B6);">🐵</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Cyber Ape #3312</div>
+        <div class="nft-card-price">8.2 SOL</div>
+      </div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Pixel Warrior #4456')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);">⚔️</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Pixel Warrior #4456</div>
+        <div class="nft-card-price">3.1 SOL</div>
+      </div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Meta Land #5678')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);">🏝️</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Meta Land #5678</div>
+        <div class="nft-card-price">25 ETH</div>
+      </div>
+    </div>
+    <div class="nft-card reveal" onclick="showNftDetail('Space Cat #6789')">
+      <div class="nft-card-img" style="background:linear-gradient(135deg,#10B981,#34D399);">🐱</div>
+      <div class="nft-card-info">
+        <div class="nft-card-name">Space Cat #6789</div>
+        <div class="nft-card-price">1.2 SOL</div>
       </div>
     </div>
   </div>
-
-  <div style="padding:0 20px 20px;display:flex;gap:12px;" class="entrance entrance-d3">
-    <button class="balance-btn balance-btn-primary" style="flex:1;background:var(--green-600);color:#fff;" onclick="openSheet('send')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      Отправить
-    </button>
-    <button class="balance-btn balance-btn-secondary" style="flex:1;background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);" onclick="openSheet('receive')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/><line x1="21" y1="21" x2="3" y2="21"/></svg>
-      Получить
-    </button>
-  </div>
-
-  <section style="padding-bottom:24px;">
-    <div class="section-header">
-      <h2 class="section-title">Статистика</h2>
-    </div>
-    <div style="padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div class="stat-card">
-        <div class="stat-number" id="assetBalance">0.142</div>
-        <div class="stat-label">Баланс</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" id="assetValue">$12,840</div>
-        <div class="stat-label">Стоимость</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">$1.78T</div>
-        <div class="stat-label">Капитализация</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">$42B</div>
-        <div class="stat-label">Объём 24ч</div>
-      </div>
-    </div>
-  </section>
 
   <div class="nav-spacer"></div>
 </div>
 
 <nav class="bottom-nav">
-  <a href="../index.html" class="nav-item active" data-tab="wallet">
+  <a href="../index.html" class="nav-item" data-tab="wallet">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
     </div>
@@ -121,7 +118,7 @@
     </div>
     <span>Обмен</span>
   </a>
-  <a href="discover.html" class="nav-item" data-tab="discover">
+  <a href="discover.html" class="nav-item active" data-tab="discover">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
     </div>
@@ -135,197 +132,15 @@
   </a>
 </nav>
 
-<!-- ACTION SHEET -->
-<div class="overlay" id="actionSheet">
-  <div class="overlay-backdrop" onclick="closeSheet()"></div>
-  <div class="sheet" id="sheetPanel">
-    <div class="sheet-handle"></div>
-    <button class="sheet-close" onclick="closeSheet()">&times;</button>
-    <h3 class="sheet-title" id="sheetTitle">Действие</h3>
-    <div id="sheetContent"></div>
-  </div>
-</div>
-
 <script>
-// ===== ДАННЫЕ АССЕТОВ =====
-const assetData = {
-  BTC: { name: 'Bitcoin', icon: '&#8383;', price: '$90,426.50', balance: '0.142', value: '$12,840', color: 'asset-icon-btc' },
-  ETH: { name: 'Ethereum', icon: '&#926;', price: '$4,520.00', balance: '4.28', value: '$8,560', color: 'asset-icon-eth' },
-  USDT: { name: 'Tether', icon: '$', price: '$1.00', balance: '2,340', value: '$2,340', color: 'asset-icon-usdt' },
-  SOL: { name: 'Solana', icon: 'S', price: '$198.00', balance: '18.5', value: '$1,107', color: 'asset-icon-sol' }
-};
-
-function initAsset() {
-  const params = new URLSearchParams(window.location.search);
-  const coin = params.get('coin') || 'BTC';
-  const data = assetData[coin];
-  if (!data) return;
-
-  document.getElementById('assetTitle').textContent = data.name;
-  document.getElementById('assetPrice').textContent = data.price;
-  document.getElementById('assetBalance').textContent = data.balance;
-  document.getElementById('assetValue').textContent = data.value;
-
-  const icon = document.getElementById('assetIcon');
-  icon.innerHTML = data.icon;
-  icon.className = 'asset-icon ' + data.color;
-  icon.style.cssText = 'width:64px;height:64px;font-size:28px;margin:0 auto 16px;';
-}
-
-// ===== ДАННЫЕ ДЛЯ ГРАФИКА =====
-const chartData = {
-  '1H': [89400,89600,89200,89800,90100,89900,90300,90500,90200,90800,91000,90700,91200,91400,91100,91600,91800,91500,92000,92200,91900,92400,90426],
-  '1D': [87200,87800,88500,88100,88900,89500,89100,89800,90400,90000,90700,91200,90800,91500,92000,91600,92200,91800,92500,93000,92600,93200,90426],
-  '1W': [82000,83500,84800,84200,85600,86900,86200,87500,88800,88100,89400,90700,90000,91300,92600,91900,93200,92500,93800,94500,93800,95100,90426],
-  '1M': [68000,69500,71200,70800,72500,74200,73800,75500,77200,76800,78500,80200,79800,81500,83200,82800,84500,86200,85800,87500,89200,88800,90426],
-  '1Y': [42000,43500,44800,46200,45500,47800,49200,48500,50800,52200,51500,53800,55200,54500,56800,58200,57500,59800,61200,60500,62800,64200,90426]
-};
-
-let currentPeriod = '1W';
-
-function renderChart(period) {
-  const data = chartData[period] || chartData['1W'];
-  const width = 370, height = 180, padding = 10;
-  const min = Math.min(...data) * 0.998;
-  const max = Math.max(...data) * 1.002;
-  const range = max - min;
-
-  const points = data.map((v, i) => {
-    const x = padding + (i / (data.length - 1)) * (width - padding * 2);
-    const y = height - padding - ((v - min) / range) * (height - padding * 2);
-    return [x, y];
-  });
-
-  function catmullRom(p0, p1, p2, p3, t) {
-    const v0x = (p2[0] - p0[0]) * 0.5;
-    const v1x = (p3[0] - p1[0]) * 0.5;
-    const v0y = (p2[1] - p0[1]) * 0.5;
-    const v1y = (p3[1] - p1[1]) * 0.5;
-    const t2 = t * t, t3 = t2 * t;
-    return [
-      (2*t3 - 3*t2 + 1)*p1[0] + (t3 - 2*t2 + t)*v0x + (-2*t3 + 3*t2)*p2[0] + (t3 - t2)*v1x,
-      (2*t3 - 3*t2 + 1)*p1[1] + (t3 - 2*t2 + t)*v0y + (-2*t3 + 3*t2)*p2[1] + (t3 - t2)*v1y
-    ];
-  }
-
-  let lineD = 'M' + points[0][0] + ',' + points[0][1];
-  for (let i = 0; i < points.length - 1; i++) {
-    const p0 = points[Math.max(0, i - 1)];
-    const p1 = points[i];
-    const p2 = points[i + 1];
-    const p3 = points[Math.min(points.length - 1, i + 2)];
-    for (let t = 0; t < 1; t += 0.1) {
-      const pt = catmullRom(p0, p1, p2, p3, t);
-      lineD += ' L' + pt[0].toFixed(1) + ',' + pt[1].toFixed(1);
-    }
-    lineD += ' L' + p2[0] + ',' + p2[1];
-  }
-
-  const areaD = lineD + ' L' + (width-padding) + ',' + height + ' L' + padding + ',' + height + ' Z';
-
-  const lineEl = document.getElementById('chartLine');
-  const areaEl = document.getElementById('chartArea');
-  if (!lineEl || !areaEl) return;
-
-  lineEl.setAttribute('d', lineD);
-  areaEl.setAttribute('d', areaD);
-
-  const len = lineEl.getTotalLength ? lineEl.getTotalLength() : 800;
-  lineEl.style.strokeDasharray = len;
-  lineEl.style.strokeDashoffset = len;
-  lineEl.style.animation = 'none';
-  void lineEl.offsetHeight;
-  lineEl.style.animation = 'drawLine 1.2s cubic-bezier(0.4,0,0.2,1) forwards';
-}
-
-function setPeriod(btn, period) {
-  document.querySelectorAll('.chart-period').forEach(b => b.classList.remove('active'));
+function filterNft(btn, filter) {
+  document.querySelectorAll('.market-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  currentPeriod = period;
-  renderChart(period);
+  showToast('🎨 Фильтр: ' + filter);
 }
-
-// ===== ВЗАИМОДЕЙСТВИЕ С ГРАФИКОМ =====
-function initChartInteraction() {
-  const container = document.getElementById('chartContainer');
-  const tooltip = document.getElementById('chartTooltip');
-  const dot = document.getElementById('chartDot');
-  if (!container || !tooltip || !dot) return;
-
-  function updateTooltip(clientX) {
-    const rect = container.getBoundingClientRect();
-    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-    const data = chartData[currentPeriod] || chartData['1W'];
-    const idx = Math.min(Math.max(0, Math.round((x / rect.width) * (data.length - 1))), data.length - 1);
-    const val = data[idx];
-
-    tooltip.textContent = '$' + val.toLocaleString();
-    tooltip.style.left = x + 'px';
-    tooltip.style.top = '50px';
-    tooltip.style.opacity = '1';
-
-    const path = document.getElementById('chartLine');
-    if (path && path.getPointAtLength) {
-      try {
-        const len = path.getTotalLength();
-        const targetLen = (x / rect.width) * len;
-        const p = path.getPointAtLength(Math.max(0, Math.min(len, targetLen)));
-        dot.setAttribute('cx', p.x);
-        dot.setAttribute('cy', p.y);
-        dot.style.opacity = '1';
-      } catch(e) {}
-    }
-  }
-
-  container.addEventListener('mousemove', (e) => updateTooltip(e.clientX));
-  container.addEventListener('mouseleave', () => {
-    tooltip.style.opacity = '0';
-    dot.style.opacity = '0';
-  });
-  container.addEventListener('touchstart', (e) => { if (e.touches.length > 0) updateTooltip(e.touches[0].clientX); }, { passive: true });
-  container.addEventListener('touchmove', (e) => { if (e.touches.length > 0) updateTooltip(e.touches[0].clientX); }, { passive: true });
-  container.addEventListener('touchend', () => { tooltip.style.opacity = '0'; dot.style.opacity = '0'; });
+function showNftDetail(name) {
+  showToast('🖼️ NFT: ' + name + '\nОткрывается карточка...');
 }
-
-// ===== SHEET =====
-const sheetConfigs = {
-  send: { title: 'Отправить', inputs: ['Адрес получателя', 'Сумма'] },
-  receive: { title: 'Получить', inputs: ['Ваш адрес кошелька', 'Сумма (опционально)'] }
-};
-
-function openSheet(type) {
-  const overlay = document.getElementById('actionSheet');
-  const titleEl = document.getElementById('sheetTitle');
-  const contentEl = document.getElementById('sheetContent');
-  if (!overlay || !titleEl || !contentEl) return;
-
-  const config = sheetConfigs[type] || sheetConfigs.send;
-  titleEl.textContent = config.title;
-
-  let inputsHtml = '';
-  config.inputs.forEach((ph, i) => {
-    inputsHtml += '<input type="text" class="sheet-input" placeholder="' + ph + '" id="sheetInput' + i + '">';
-  });
-  contentEl.innerHTML = inputsHtml + '<button class="sheet-btn" onclick="confirmAction()">Подтвердить</button>';
-
-  overlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeSheet() {
-  const overlay = document.getElementById('actionSheet');
-  if (overlay) overlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function confirmAction() {
-  const btn = document.querySelector('.sheet-btn');
-  if (!btn) return;
-  btn.textContent = '✓ Успешно';
-  btn.classList.add('success');
-  setTimeout(() => closeSheet(), 800);
-}
-
 function showToast(message) {
   const container = document.createElement('div');
   container.className = 'toast-custom';
@@ -333,41 +148,6 @@ function showToast(message) {
   document.body.appendChild(container);
   setTimeout(() => container.remove(), 2200);
 }
-
-function initSheetSwipe() {
-  const sheetPanel = document.getElementById('sheetPanel');
-  if (!sheetPanel) return;
-  let startY = 0, currentY = 0;
-  sheetPanel.addEventListener('touchstart', (e) => {
-    startY = e.touches[0].clientY;
-    sheetPanel.style.transition = 'none';
-  }, { passive: true });
-  sheetPanel.addEventListener('touchmove', (e) => {
-    currentY = e.touches[0].clientY;
-    const diff = currentY - startY;
-    if (diff > 0) sheetPanel.style.transform = 'translateY(' + diff + 'px)';
-  }, { passive: true });
-  sheetPanel.addEventListener('touchend', () => {
-    const diff = currentY - startY;
-    sheetPanel.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
-    if (diff > 80) {
-      closeSheet();
-    } else {
-      sheetPanel.style.transform = 'translateY(0)';
-    }
-    setTimeout(() => { sheetPanel.style.transform = ''; }, 300);
-  });
-}
-
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', function() {
-  initAsset();
-  renderChart('1W');
-  initChartInteraction();
-  initSheetSwipe();
-});
-
-// ===== SCROLL REVEAL =====
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
 }, { threshold: 0.1 });
