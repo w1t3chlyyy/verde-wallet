@@ -23,12 +23,12 @@ try {
 }
 
 // ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
+// ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
 function updateUserUI() {
   // Обновляем аватар в шапке
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
     if (userData.id) {
-      // Используем официальный API Telegram для получения аватара
       const photoUrl = `https://t.me/i/userpic/320/${userData.id}.jpg`;
       avatar.innerHTML = `<img src="${photoUrl}" 
         style="width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;"
@@ -42,7 +42,6 @@ function updateUserUI() {
       avatar.style.justifyContent = 'center';
       avatar.textContent = '';
     } else {
-      // Если нет user.id - показываем инициалы
       avatar.style.position = '';
       avatar.style.overflow = '';
       avatar.style.background = 'linear-gradient(135deg, var(--green-400), var(--green-600))';
