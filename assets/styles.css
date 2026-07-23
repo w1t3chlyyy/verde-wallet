@@ -79,18 +79,17 @@ body {
 }
 .header-avatar {
   width:40px; height:40px; border-radius:var(--radius-full);
-  background:linear-gradient(135deg, var(--green-400), var(--green-600));
+  background:transparent;
   display:flex; align-items:center; justify-content:center;
-  font-family:'Space Grotesk'; font-weight:700; font-size:16px; color:#fff;
-  box-shadow:0 4px 12px rgba(22,163,74,0.25);
   position:relative; overflow:hidden; cursor:pointer;
   transition:transform var(--transition-fast);
   flex-shrink:0;
+  box-shadow:none;
 }
 .header-avatar:hover { transform:scale(1.05); }
-.header-avatar::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(135deg, rgba(255,255,255,0.3), transparent 60%);
+.header-avatar svg {
+  width:28px;
+  height:28px;
 }
 .header-notif {
   width:40px; height:40px; border-radius:var(--radius-full);
