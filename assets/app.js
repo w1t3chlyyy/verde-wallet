@@ -34,10 +34,14 @@ try {
 }
 
 // ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
+// ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
 function updateUserUI() {
   // Обновляем аватар в шапке
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
+    const name = (userData && userData.first_name) || 'Гость';
+    const initial = name.charAt(0).toUpperCase();
+    
     // Пробуем загрузить фото через разные методы
     const tryLoadPhoto = function() {
       // Метод 1: через t.me (для Telegram)
@@ -54,10 +58,10 @@ function updateUserUI() {
     const photoUrl = tryLoadPhoto();
     
     if (photoUrl) {
-      const initial = (userData && userData.first_name) ? userData.first_name.charAt(0).toUpperCase() : 'G';
+      // Пытаемся загрузить реальное фото
       avatar.innerHTML = `<img src="${photoUrl}" 
         style="width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;"
-        onerror="this.style.display='none'; this.parentElement.textContent='${initial}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
+        onerror="this.style.display='none'; this.parentElement.innerHTML=''; this.parentElement.textContent='${initial}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.fontFamily='Space Grotesk'; this.parentElement.style.fontWeight='700'; this.parentElement.style.fontSize='16px'; this.parentElement.style.color='#fff';">
       `;
       avatar.style.position = 'relative';
       avatar.style.overflow = 'hidden';
@@ -67,16 +71,18 @@ function updateUserUI() {
       avatar.style.justifyContent = 'center';
       avatar.textContent = '';
     } else {
+      // Если нет фото - показываем инициалы с красивым фоном
       avatar.style.position = '';
       avatar.style.overflow = '';
       avatar.style.background = 'linear-gradient(135deg, var(--green-400), var(--green-600))';
       avatar.style.display = 'flex';
       avatar.style.alignItems = 'center';
       avatar.style.justifyContent = 'center';
-      const initials = (userData && userData.first_name) 
-        ? userData.first_name.charAt(0).toUpperCase() 
-        : 'G';
-      avatar.textContent = initials;
+      avatar.style.fontFamily = 'Space Grotesk';
+      avatar.style.fontWeight = '700';
+      avatar.style.fontSize = '16px';
+      avatar.style.color = '#fff';
+      avatar.textContent = initial;
     }
   }
   
