@@ -142,86 +142,18 @@
   </a>
 </nav>
 
-<script>
-// Получаем данные пользователя из Telegram
-let userData = { first_name: '', last_name: '', username: '', id: null };
-
-try {
-  if (window.Telegram && window.Telegram.WebApp) {
-    if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-      userData = window.Telegram.WebApp.initDataUnsafe.user;
-      console.log('Profile user data from Telegram:', userData);
-    } else {
-      console.log('No user data in initDataUnsafe');
-    }
-  } else {
-    console.log('Not in Telegram WebApp context');
-  }
-} catch(e) {
-  console.log('Error getting user data:', e);
+/* ===== PROFILE AVATAR ===== */
+.profile-avatar-large {
+  width:80px; height:80px; border-radius:var(--radius-full);
+  background:transparent;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 16px;
+  position:relative; overflow:hidden;
+  box-shadow:none;
 }
-
-// Обновляем профиль
-document.addEventListener('DOMContentLoaded', function() {
-  const nameEl = document.querySelector('.profile-name');
-  const avatarEl = document.querySelector('.profile-avatar-large');
-  const addressEl = document.querySelector('.profile-address span');
-  
-  // Обновляем имя
-  if (nameEl) {
-    if (userData && userData.first_name) {
-      nameEl.textContent = userData.first_name;
-    } else {
-      nameEl.textContent = 'Пользователь';
-    }
-  }
-  
-  // Обновляем аватар — показываем логотип Verde
-  if (avatarEl) {
-    avatarEl.innerHTML = `
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#22C55E"/>
-        <path d="M12 6L14.5 11.5L20 12L14.5 14.5L12 20L9.5 14.5L4 12L9.5 11.5L12 6Z" fill="white" opacity="0.9"/>
-        <circle cx="12" cy="12" r="2" fill="#22C55E"/>
-      </svg>
-    `;
-    avatarEl.style.position = 'relative';
-    avatarEl.style.overflow = 'hidden';
-    avatarEl.style.padding = '0';
-    avatarEl.style.background = 'transparent';
-    avatarEl.style.display = 'flex';
-    avatarEl.style.alignItems = 'center';
-    avatarEl.style.justifyContent = 'center';
-    avatarEl.style.boxShadow = 'none';
-    avatarEl.textContent = '';
-  }
-  
-  // Обновляем username
-  if (addressEl && userData && userData.username) {
-    addressEl.textContent = '@' + userData.username;
-  }
-});
-
-function copyProfileAddress() {
-  showToast('Адрес скопирован!');
+.profile-avatar-large svg {
+  width:56px;
+  height:56px;
 }
-function logout() {
-  if (confirm('Выйти из кошелька?')) {
-    showToast('Выход выполнен');
-    setTimeout(() => { window.location.href = '../index.html'; }, 1000);
-  }
-}
-function showToast(message) {
-  const container = document.createElement('div');
-  container.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#16A34A;color:#fff;padding:14px 28px;border-radius:16px;font-weight:600;font-size:14px;z-index:400;animation:fadeInOut 2.2s ease forwards;font-family:Inter;';
-  container.textContent = message;
-  document.body.appendChild(container);
-  setTimeout(() => container.remove(), 2200);
-}
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-</script>
 </body>
 </html>
