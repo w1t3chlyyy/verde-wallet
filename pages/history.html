@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/styles.css">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js?1"></script>
 </head>
 <body>
 
@@ -185,15 +185,14 @@
 function filterHistory(btn, filter) {
   document.querySelectorAll('.history-filter').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  showToast('Фильтр: ' + filter);
+  showToast('📋 Фильтр: ' + filter);
 }
 function showTxDetail(txId) {
-  showToast('Транзакция: ' + txId + '
-Хеш: 0x' + Math.random().toString(16).slice(2,42));
+  showToast('📝 Транзакция: ' + txId + '\nХеш: 0x' + Math.random().toString(16).slice(2,42));
 }
 function showToast(message) {
   const container = document.createElement('div');
-  container.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#16A34A;color:#fff;padding:14px 28px;border-radius:16px;font-weight:600;font-size:14px;z-index:400;animation:fadeInOut 2.2s ease forwards;font-family:Inter;white-space:pre-line;';
+  container.className = 'toast-custom';
   container.textContent = message;
   document.body.appendChild(container);
   setTimeout(() => container.remove(), 2200);
