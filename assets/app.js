@@ -1,6 +1,6 @@
 // ===== TELEGRAM WEB APP INIT =====
 let tg = null;
-let userData = { first_name: 'Гость', last_name: '', username: '', photo_url: '', id: null };
+let userData = { first_name: 'Гость', last_name: '', username: '', id: null };
 
 try {
   if (window.Telegram && window.Telegram.WebApp) {
@@ -27,18 +27,28 @@ function updateUserUI() {
   // Обновляем аватар в шапке
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
-    // Если есть фото пользователя
-    if (userData.photo_url) {
-      avatar.innerHTML = `<img src="${userData.photo_url}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;">`;
+    if (userData.id) {
+      // Используем официальный API Telegram для получения аватара
+      const photoUrl = `https://t.me/i/userpic/320/${userData.id}.jpg`;
+      avatar.innerHTML = `<img src="${photoUrl}" 
+        style="width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;"
+        onerror="this.style.display='none'; this.parentElement.textContent='${userData.first_name ? userData.first_name.charAt(0).toUpperCase() : 'G'}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
+      `;
       avatar.style.position = 'relative';
       avatar.style.overflow = 'hidden';
       avatar.style.background = 'transparent';
+      avatar.style.display = 'flex';
+      avatar.style.alignItems = 'center';
+      avatar.style.justifyContent = 'center';
       avatar.textContent = '';
     } else {
-      // Если фото нет - показываем инициалы
+      // Если нет user.id - показываем инициалы
       avatar.style.position = '';
       avatar.style.overflow = '';
       avatar.style.background = 'linear-gradient(135deg, var(--green-400), var(--green-600))';
+      avatar.style.display = 'flex';
+      avatar.style.alignItems = 'center';
+      avatar.style.justifyContent = 'center';
       const initials = userData.first_name 
         ? userData.first_name.charAt(0).toUpperCase() 
         : 'G';
