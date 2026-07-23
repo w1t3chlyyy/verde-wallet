@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/styles.css">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js?1"></script>
 </head>
 <body>
 
@@ -147,13 +147,13 @@ function calculateBuy() {
   receive.value = (val / 90426).toFixed(8);
 }
 function selectBuyToken() {
-  showToast('Выбор токена');
+  showToast('🔄 Выбор токена');
 }
 function selectPayment() {
-  showToast('Выбор способа оплаты');
+  showToast('💳 Выбор способа оплаты');
 }
 function selectPaymentMethod(method) {
-  showToast('Выбрано: ' + method);
+  showToast('✅ Выбрано: ' + method);
 }
 function executeBuy() {
   const btn = document.querySelector('.sheet-btn');
