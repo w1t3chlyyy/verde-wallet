@@ -595,17 +595,22 @@ body {
 }
 .profile-avatar-large {
   width:80px; height:80px; border-radius:var(--radius-full);
-  background:linear-gradient(135deg, var(--green-400), var(--green-600));
+  background:transparent;
   display:flex; align-items:center; justify-content:center;
-  font-family:'Space Grotesk'; font-size:32px; font-weight:700; color:#fff;
-  margin:0 auto 16px; box-shadow:0 8px 24px rgba(22,163,74,0.25);
+  margin:0 auto 16px;
   position:relative; overflow:hidden;
+  box-shadow:none;
 }
-.profile-avatar-large::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(135deg, rgba(255,255,255,0.3), transparent 60%);
+.profile-avatar-large svg {
+  width:56px;
+  height:56px;
 }
-.profile-name { font-family:'Space Grotesk'; font-size:22px; font-weight:700; }
+.profile-name { 
+  font-family:'Space Grotesk'; 
+  font-size:22px; 
+  font-weight:700; 
+  color:var(--text-primary);
+}
 .profile-address {
   display:inline-flex; align-items:center; gap:6px; margin-top:8px;
   padding:6px 14px; background:var(--bg-card); border-radius:var(--radius-full);
