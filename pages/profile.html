@@ -176,50 +176,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Обновляем аватар
+  // Обновляем аватар — показываем логотип Verde
   if (avatarEl) {
-    const name = (userData && userData.first_name) || 'Пользователь';
-    const initial = name.charAt(0).toUpperCase();
-    
-    const tryLoadPhoto = function() {
-      if (userData && userData.id) {
-        return `https://t.me/i/userpic/320/${userData.id}.jpg`;
-      }
-      if (userData && userData.photo_url) {
-        return userData.photo_url;
-      }
-      return null;
-    };
-    
-    const photoUrl = tryLoadPhoto();
-    
-    if (photoUrl) {
-      avatarEl.innerHTML = `<img src="${photoUrl}" 
-        style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
-        onerror="this.style.display='none'; this.parentElement.innerHTML=''; this.parentElement.textContent='${initial}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.fontFamily='Space Grotesk'; this.parentElement.style.fontWeight='700'; this.parentElement.style.fontSize='32px'; this.parentElement.style.color='#fff';">
-      `;
-      avatarEl.style.position = 'relative';
-      avatarEl.style.overflow = 'hidden';
-      avatarEl.style.padding = '0';
-      avatarEl.style.background = 'transparent';
-      avatarEl.style.display = 'flex';
-      avatarEl.style.alignItems = 'center';
-      avatarEl.style.justifyContent = 'center';
-      avatarEl.textContent = '';
-    } else {
-      avatarEl.style.position = '';
-      avatarEl.style.overflow = '';
-      avatarEl.style.background = 'linear-gradient(135deg, var(--green-400), var(--green-600))';
-      avatarEl.style.padding = '';
-      avatarEl.style.display = 'flex';
-      avatarEl.style.alignItems = 'center';
-      avatarEl.style.justifyContent = 'center';
-      avatarEl.style.fontFamily = 'Space Grotesk';
-      avatarEl.style.fontWeight = '700';
-      avatarEl.style.fontSize = '32px';
-      avatarEl.style.color = '#fff';
-      avatarEl.textContent = initial;
-    }
+    avatarEl.innerHTML = `
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#22C55E"/>
+        <path d="M12 6L14.5 11.5L20 12L14.5 14.5L12 20L9.5 14.5L4 12L9.5 11.5L12 6Z" fill="white" opacity="0.9"/>
+        <circle cx="12" cy="12" r="2" fill="#22C55E"/>
+      </svg>
+    `;
+    avatarEl.style.position = 'relative';
+    avatarEl.style.overflow = 'hidden';
+    avatarEl.style.padding = '0';
+    avatarEl.style.background = 'transparent';
+    avatarEl.style.display = 'flex';
+    avatarEl.style.alignItems = 'center';
+    avatarEl.style.justifyContent = 'center';
+    avatarEl.style.boxShadow = 'none';
+    avatarEl.textContent = '';
   }
   
   // Обновляем username
