@@ -34,56 +34,26 @@ try {
 }
 
 // ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
-// ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
 function updateUserUI() {
-  // Обновляем аватар в шапке
+  // Обновляем аватар в шапке — показываем логотип
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
-    const name = (userData && userData.first_name) || 'Гость';
-    const initial = name.charAt(0).toUpperCase();
-    
-    // Пробуем загрузить фото через разные методы
-    const tryLoadPhoto = function() {
-      // Метод 1: через t.me (для Telegram)
-      if (userData && userData.id) {
-        return `https://t.me/i/userpic/320/${userData.id}.jpg`;
-      }
-      // Метод 2: через Telegram WebApp (если есть)
-      if (userData && userData.photo_url) {
-        return userData.photo_url;
-      }
-      return null;
-    };
-    
-    const photoUrl = tryLoadPhoto();
-    
-    if (photoUrl) {
-      // Пытаемся загрузить реальное фото
-      avatar.innerHTML = `<img src="${photoUrl}" 
-        style="width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;"
-        onerror="this.style.display='none'; this.parentElement.innerHTML=''; this.parentElement.textContent='${initial}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.fontFamily='Space Grotesk'; this.parentElement.style.fontWeight='700'; this.parentElement.style.fontSize='16px'; this.parentElement.style.color='#fff';">
-      `;
-      avatar.style.position = 'relative';
-      avatar.style.overflow = 'hidden';
-      avatar.style.background = 'transparent';
-      avatar.style.display = 'flex';
-      avatar.style.alignItems = 'center';
-      avatar.style.justifyContent = 'center';
-      avatar.textContent = '';
-    } else {
-      // Если нет фото - показываем инициалы с красивым фоном
-      avatar.style.position = '';
-      avatar.style.overflow = '';
-      avatar.style.background = 'linear-gradient(135deg, var(--green-400), var(--green-600))';
-      avatar.style.display = 'flex';
-      avatar.style.alignItems = 'center';
-      avatar.style.justifyContent = 'center';
-      avatar.style.fontFamily = 'Space Grotesk';
-      avatar.style.fontWeight = '700';
-      avatar.style.fontSize = '16px';
-      avatar.style.color = '#fff';
-      avatar.textContent = initial;
-    }
+    // Просто показываем логотип Verde
+    avatar.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#22C55E"/>
+        <path d="M12 6L14.5 11.5L20 12L14.5 14.5L12 20L9.5 14.5L4 12L9.5 11.5L12 6Z" fill="white" opacity="0.9"/>
+        <circle cx="12" cy="12" r="2" fill="#22C55E"/>
+      </svg>
+    `;
+    avatar.style.position = 'relative';
+    avatar.style.overflow = 'hidden';
+    avatar.style.background = 'transparent';
+    avatar.style.display = 'flex';
+    avatar.style.alignItems = 'center';
+    avatar.style.justifyContent = 'center';
+    avatar.style.boxShadow = 'none';
+    avatar.textContent = '';
   }
   
   // Обновляем приветствие
