@@ -148,7 +148,7 @@ function executeSwap() {
 }
 function showToast(message) {
   const container = document.createElement('div');
-  container.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#16A34A;color:#fff;padding:14px 28px;border-radius:16px;font-weight:600;font-size:14px;z-index:400;animation:fadeInOut 2.2s ease forwards;font-family:Inter;';
+  container.className = 'toast-custom';
   container.textContent = message;
   document.body.appendChild(container);
   setTimeout(() => container.remove(), 2200);
