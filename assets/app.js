@@ -1,6 +1,6 @@
 // ===== TELEGRAM WEB APP INIT =====
 let tg = null;
-let userData = { first_name: 'Гость', last_name: '', username: '' };
+let userData = { first_name: 'Гость', last_name: '', username: '', photo_url: '', id: null };
 
 try {
   if (window.Telegram && window.Telegram.WebApp) {
@@ -22,18 +22,31 @@ try {
   console.log('Not in Telegram WebApp context');
 }
 
-// ===== ОБНОВЛЕНИЕ ИМЕНИ В ИНТЕРФЕЙСЕ =====
+// ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ В ИНТЕРФЕЙСЕ =====
 function updateUserUI() {
   // Обновляем аватар в шапке
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
-    const initials = userData.first_name 
-      ? userData.first_name.charAt(0).toUpperCase() 
-      : 'G';
-    avatar.textContent = initials;
+    // Если есть фото пользователя
+    if (userData.photo_url) {
+      avatar.innerHTML = `<img src="${userData.photo_url}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;position:absolute;top:0;left:0;">`;
+      avatar.style.position = 'relative';
+      avatar.style.overflow = 'hidden';
+      avatar.style.background = 'transparent';
+      avatar.textContent = '';
+    } else {
+      // Если фото нет - показываем инициалы
+      avatar.style.position = '';
+      avatar.style.overflow = '';
+      avatar.style.background = 'linear-gradient(135deg, var(--green-400), var(--green-600))';
+      const initials = userData.first_name 
+        ? userData.first_name.charAt(0).toUpperCase() 
+        : 'G';
+      avatar.textContent = initials;
+    }
   }
   
-  // Обновляем приветствие (если есть)
+  // Обновляем приветствие
   const welcome = document.getElementById('welcomeMessage');
   if (welcome) {
     const name = userData.first_name || 'Гость';
@@ -297,7 +310,6 @@ function goToPage(page) {
     profile: 'pages/profile.html',
     staking: 'pages/staking.html',
     buy: 'pages/buy.html',
-    nft: 'pages/nft.html',
     bridge: 'pages/bridge.html'
   };
   if (pages[page]) {
