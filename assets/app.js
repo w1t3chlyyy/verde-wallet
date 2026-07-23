@@ -1,5 +1,7 @@
 // ===== TELEGRAM WEB APP INIT =====
 let tg = null;
+let userData = { first_name: 'Гость', last_name: '', username: '' };
+
 try {
   if (window.Telegram && window.Telegram.WebApp) {
     tg = window.Telegram.WebApp;
@@ -8,10 +10,35 @@ try {
     tg.setHeaderColor('#F7F9F4');
     tg.setBackgroundColor('#F7F9F4');
     tg.enableClosingConfirmation();
+    
+    // ===== ПОЛУЧАЕМ ДАННЫЕ ПОЛЬЗОВАТЕЛЯ =====
+    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+      userData = tg.initDataUnsafe.user;
+      console.log('User data:', userData);
+    }
     console.log('Telegram WebApp initialized');
   }
 } catch (e) {
   console.log('Not in Telegram WebApp context');
+}
+
+// ===== ОБНОВЛЕНИЕ ИМЕНИ В ИНТЕРФЕЙСЕ =====
+function updateUserUI() {
+  // Обновляем аватар в шапке
+  const avatar = document.querySelector('.header-avatar');
+  if (avatar) {
+    const initials = userData.first_name 
+      ? userData.first_name.charAt(0).toUpperCase() 
+      : 'G';
+    avatar.textContent = initials;
+  }
+  
+  // Обновляем приветствие (если есть)
+  const welcome = document.getElementById('welcomeMessage');
+  if (welcome) {
+    const name = userData.first_name || 'Гость';
+    welcome.textContent = `Привет, ${name}!`;
+  }
 }
 
 // ===== CHART DATA =====
@@ -73,7 +100,6 @@ function renderChart(period) {
   lineEl.setAttribute('d', lineD);
   areaEl.setAttribute('d', areaD);
 
-  // Animate line
   const len = lineEl.getTotalLength ? lineEl.getTotalLength() : 800;
   lineEl.style.strokeDasharray = len;
   lineEl.style.strokeDashoffset = len;
@@ -125,7 +151,6 @@ function initChartInteraction() {
     dot.style.opacity = '0';
   });
 
-  // Touch support
   container.addEventListener('touchstart', (e) => {
     updateTooltip(e.touches[0].clientX);
   }, { passive: true });
@@ -180,7 +205,6 @@ const sheetConfigs = {
   swap: { title: 'Обмен', inputs: ['Отдаёте', 'Получаете'] }
 };
 
-// Генерация случайного адреса
 function generateAddress(prefix, length) {
   const chars = '0123456789abcdef';
   let result = prefix;
@@ -200,7 +224,6 @@ function openSheet(type) {
   titleEl.textContent = config.title;
 
   if (config.isReceive) {
-    // Генерируем адреса
     const trc20Address = generateAddress('T', 33);
     const tonAddress = generateAddress('EQ', 46);
     
@@ -238,13 +261,11 @@ function openSheet(type) {
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
 
-// Функция копирования адреса
 function copyReceiveAddress(address) {
   navigator.clipboard.writeText(address).then(() => {
     showToast('✅ Адрес скопирован!');
     if (tg) tg.HapticFeedback.notificationOccurred('success');
   }).catch(() => {
-    // Fallback для старых браузеров
     const textarea = document.createElement('textarea');
     textarea.value = address;
     document.body.appendChild(textarea);
@@ -361,6 +382,7 @@ function initSheetSwipe() {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', function() {
+  updateUserUI();
   renderChart('1W');
   animateBalance();
   initScrollReveal();
@@ -368,7 +390,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initTouchFeedback();
   initSheetSwipe();
 
-  // Back button in Telegram
   if (tg) {
     tg.BackButton.onClick(() => {
       window.history.back();
