@@ -148,7 +148,6 @@ let userData = { first_name: '', last_name: '', username: '', id: null };
 
 try {
   if (window.Telegram && window.Telegram.WebApp) {
-    // Пробуем получить данные
     if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
       userData = window.Telegram.WebApp.initDataUnsafe.user;
       console.log('Profile user data from Telegram:', userData);
@@ -168,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const avatarEl = document.querySelector('.profile-avatar-large');
   const addressEl = document.querySelector('.profile-address span');
   
-  // Обновляем имя - только first_name, если есть
+  // Обновляем имя
   if (nameEl) {
     if (userData && userData.first_name) {
       nameEl.textContent = userData.first_name;
@@ -179,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Обновляем аватар
   if (avatarEl) {
+    const name = (userData && userData.first_name) || 'Пользователь';
+    const initial = name.charAt(0).toUpperCase();
+    
     const tryLoadPhoto = function() {
       if (userData && userData.id) {
         return `https://t.me/i/userpic/320/${userData.id}.jpg`;
@@ -190,14 +192,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     const photoUrl = tryLoadPhoto();
-    const initial = (userData && userData.first_name) 
-      ? userData.first_name.charAt(0).toUpperCase() 
-      : 'U';
     
     if (photoUrl) {
       avatarEl.innerHTML = `<img src="${photoUrl}" 
         style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
-        onerror="this.style.display='none'; this.parentElement.textContent='${initial}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
+        onerror="this.style.display='none'; this.parentElement.innerHTML=''; this.parentElement.textContent='${initial}'; this.parentElement.style.background='linear-gradient(135deg, var(--green-400), var(--green-600))'; this.parentElement.style.position=''; this.parentElement.style.overflow=''; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.fontFamily='Space Grotesk'; this.parentElement.style.fontWeight='700'; this.parentElement.style.fontSize='32px'; this.parentElement.style.color='#fff';">
       `;
       avatarEl.style.position = 'relative';
       avatarEl.style.overflow = 'hidden';
@@ -215,11 +214,15 @@ document.addEventListener('DOMContentLoaded', function() {
       avatarEl.style.display = 'flex';
       avatarEl.style.alignItems = 'center';
       avatarEl.style.justifyContent = 'center';
+      avatarEl.style.fontFamily = 'Space Grotesk';
+      avatarEl.style.fontWeight = '700';
+      avatarEl.style.fontSize = '32px';
+      avatarEl.style.color = '#fff';
       avatarEl.textContent = initial;
     }
   }
   
-  // Обновляем username в адресе
+  // Обновляем username
   if (addressEl && userData && userData.username) {
     addressEl.textContent = '@' + userData.username;
   }
