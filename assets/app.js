@@ -23,7 +23,6 @@ try {
 
 // ===== ОБНОВЛЕНИЕ ИМЕНИ И АВАТАРКИ =====
 function updateUserUI() {
-  // Обновляем аватар в шапке — логотип
   const avatar = document.querySelector('.header-avatar');
   if (avatar) {
     avatar.innerHTML = `
@@ -41,7 +40,6 @@ function updateUserUI() {
     avatar.textContent = '';
   }
   
-  // Обновляем приветствие
   const welcome = document.getElementById('welcomeMessage');
   if (welcome) {
     const name = (userData && userData.first_name) || 'Гость';
@@ -60,7 +58,6 @@ const chartData = {
 
 let currentPeriod = '1W';
 
-// ===== ОТРИСОВКА ГРАФИКА =====
 function renderChart(period) {
   const data = chartData[period] || chartData['1W'];
   const width = 370, height = 180, padding = 10;
@@ -116,7 +113,6 @@ function renderChart(period) {
   lineEl.style.animation = 'drawLine 1.2s cubic-bezier(0.4,0,0.2,1) forwards';
 }
 
-// ===== УСТАНОВКА ПЕРИОДА ГРАФИКА =====
 function setPeriod(btn, period) {
   document.querySelectorAll('.chart-period').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -124,7 +120,6 @@ function setPeriod(btn, period) {
   renderChart(period);
 }
 
-// ===== АНИМАЦИЯ БАЛАНСА =====
 function animateBalance() {
   const el = document.getElementById('balanceValue');
   if (!el) return;
@@ -141,7 +136,6 @@ function animateBalance() {
   }, 16);
 }
 
-// ===== SCROLL REVEAL =====
 function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -151,7 +145,6 @@ function initScrollReveal() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// ===== ВЗАИМОДЕЙСТВИЕ С ГРАФИКОМ =====
 function initChartInteraction() {
   const container = document.getElementById('chartContainer');
   const tooltip = document.getElementById('chartTooltip');
@@ -179,9 +172,7 @@ function initChartInteraction() {
         dot.setAttribute('cx', p.x);
         dot.setAttribute('cy', p.y);
         dot.style.opacity = '1';
-      } catch(e) {
-        // ignore
-      }
+      } catch(e) {}
     }
   }
 
@@ -202,7 +193,6 @@ function initChartInteraction() {
   });
 }
 
-// ===== TACTILE FEEDBACK =====
 function initTouchFeedback() {
   document.querySelectorAll('.asset-item, .tx-item, .balance-card, .quick-action, .nav-item, .asset-item').forEach(el => {
     el.addEventListener('touchstart', () => {
@@ -213,7 +203,6 @@ function initTouchFeedback() {
   });
 }
 
-// ===== SHEET (МОДАЛЬНОЕ ОКНО) =====
 function openSheet(type) {
   const overlay = document.getElementById('actionSheet');
   const titleEl = document.getElementById('sheetTitle');
@@ -253,7 +242,6 @@ function confirmAction() {
   setTimeout(() => closeSheet(), 800);
 }
 
-// ===== SWIPE ДЛЯ SHEET =====
 function initSheetSwipe() {
   const sheetPanel = document.getElementById('sheetPanel');
   if (!sheetPanel) return;
@@ -289,6 +277,16 @@ function goToPage(page) {
     window.location.href = 'pages/buy.html';
   } else if (page === 'bridge') {
     window.location.href = 'pages/bridge.html';
+  } else if (page === 'market') {
+    window.location.href = 'pages/market.html';
+  } else if (page === 'swap') {
+    window.location.href = 'pages/swap.html';
+  } else if (page === 'discover') {
+    window.location.href = 'pages/discover.html';
+  } else if (page === 'history') {
+    window.location.href = 'pages/history.html';
+  } else if (page === 'nft') {
+    window.location.href = 'pages/nft.html';
   } else {
     window.location.href = 'pages/' + page + '.html';
   }
