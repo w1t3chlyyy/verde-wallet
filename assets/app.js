@@ -173,7 +173,11 @@ function initScrollReveal() {
 // ===== SHEET MODAL =====
 const sheetConfigs = {
   send: { title: 'Отправить', inputs: ['Адрес получателя', 'Сумма'] },
-  receive: { title: 'Получить', inputs: ['Ваш адрес кошелька', 'Сумма (опционально)'] },
+  receive: { 
+    title: 'Получить', 
+    inputs: ['Адрес для получения'],
+    isReceive: true 
+  },
   swap: { title: 'Обмен', inputs: ['Отдаёте', 'Получаете'] }
 };
 
@@ -186,11 +190,31 @@ function openSheet(type) {
   const config = sheetConfigs[type] || sheetConfigs.send;
   titleEl.textContent = config.title;
 
-  let inputsHtml = '';
-  config.inputs.forEach((ph, i) => {
-    inputsHtml += '<input type="text" class="sheet-input" placeholder="' + ph + '" id="sheetInput' + i + '">';
-  });
-  contentEl.innerHTML = inputsHtml + '<button class="sheet-btn" onclick="confirmAction()">Подтвердить</button>';
+  // Генерируем случайный адрес
+  const randomAddress = '0x' + Array.from({length: 40}, () => 
+    '0123456789abcdef'[Math.floor(Math.random() * 16)]
+  ).join('');
+
+  if (config.isReceive) {
+    // Специальный интерфейс для получения
+    contentEl.innerHTML = `
+      <div style="background:var(--bg);border-radius:16px;padding:16px;margin-bottom:16px;word-break:break-all;font-size:14px;color:var(--text-secondary);font-family:monospace;">
+        ${randomAddress}
+      </div>
+      <button class="sheet-btn" onclick="copyReceiveAddress('${randomAddress}')" style="background:var(--green-600);color:#fff;">
+        📋 Скопировать адрес
+      </button>
+      <button class="sheet-btn" onclick="closeSheet()" style="background:transparent;color:var(--text-secondary);margin-top:8px;border:1px solid var(--border);">
+        Закрыть
+      </button>
+    `;
+  } else {
+    let inputsHtml = '';
+    config.inputs.forEach((ph, i) => {
+      inputsHtml += '<input type="text" class="sheet-input" placeholder="' + ph + '" id="sheetInput' + i + '">';
+    });
+    contentEl.innerHTML = inputsHtml + '<button class="sheet-btn" onclick="confirmAction()">Подтвердить</button>';
+  }
 
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -198,19 +222,21 @@ function openSheet(type) {
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
 
-function closeSheet() {
-  const overlay = document.getElementById('actionSheet');
-  if (overlay) overlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function confirmAction() {
-  const btn = document.querySelector('.sheet-btn');
-  if (!btn) return;
-  btn.textContent = '✓ Успешно';
-  btn.classList.add('success');
-  if (tg) tg.HapticFeedback.notificationOccurred('success');
-  setTimeout(() => closeSheet(), 800);
+// Новая функция для копирования адреса
+function copyReceiveAddress(address) {
+  navigator.clipboard.writeText(address).then(() => {
+    showToast('Адрес скопирован!');
+    if (tg) tg.HapticFeedback.notificationOccurred('success');
+  }).catch(() => {
+    // Fallback
+    const textarea = document.createElement('textarea');
+    textarea.value = address;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    showToast('Адрес скопирован!');
+  });
 }
 
 // ===== NAVIGATION =====
