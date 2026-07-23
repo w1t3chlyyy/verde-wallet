@@ -6,17 +6,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#F7F9F4">
-<meta name="description" content="Verde Wallet — криптокошелек в Telegram Mini App">
-<title>Verde Wallet</title>
+<title>Актив — Verde Wallet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="../assets/styles.css">
+<script src="https://telegram.org/js/telegram-web-app.js?1"></script>
 </head>
 <body>
 
-<!-- Animated Background -->
 <div class="mesh-bg">
   <div class="mesh-orb"></div>
   <div class="mesh-orb"></div>
@@ -25,137 +23,22 @@
 
 <div class="app">
 
-  <!-- HEADER -->
- <header class="header entrance">
-  <div class="header-top">
-    <div class="header-avatar" onclick="goToPage('profile')">JD</div>
-    <div style="flex:1;text-align:center;font-weight:600;font-size:16px;color:var(--text-primary);" id="welcomeMessage">
-      Привет, Гость!
-    </div>
-    <button class="header-notif" onclick="showNotifications()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-      <span class="notif-dot"></span>
-    </button>
-  </div>
-</header>
+  <header class="page-header entrance">
+    <a href="../index.html" class="page-header-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <h1 class="page-header-title" id="assetTitle">Bitcoin</h1>
+  </header>
 
-  <!-- BALANCE CARD -->
-  <section class="balance-section entrance entrance-d1">
-    <div class="balance-card" onclick="copyAddress()">
-      <div class="balance-label">Общий баланс</div>
-      <div class="balance-amount">
-        <span class="currency">$</span>
-        <span id="balanceValue">24,847.65</span>
-      </div>
-      <div class="balance-change">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        +12.4% за 24ч
-      </div>
-      <div class="balance-actions">
-        <button class="balance-btn balance-btn-primary" onclick="openSheet('send')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          Отправить
-        </button>
-        <button class="balance-btn balance-btn-secondary" onclick="openSheet('receive')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/><line x1="21" y1="21" x2="3" y2="21"/></svg>
-          Получить
-        </button>
-      </div>
-    </div>
-  </section>
+  <div style="text-align:center;padding:0 20px 24px;" class="entrance entrance-d1">
+    <div id="assetIcon" class="asset-icon asset-icon-btc" style="width:64px;height:64px;font-size:28px;margin:0 auto 16px;">&#8383;</div>
+    <div style="font-family:Space Grotesk;font-size:36px;font-weight:700;" id="assetPrice">$90,426.50</div>
+    <div class="asset-price-change up" style="margin-top:8px;display:inline-flex;">+5.2% за 24ч</div>
+  </div>
 
-<!-- QUICK ACTIONS -->
-<section class="quick-actions entrance entrance-d2" style="justify-content:center;">
-  <div class="quick-action" onclick="openSheet('swap')">
-    <div class="quick-action-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
-    </div>
-    <span class="quick-action-label">Обмен</span>
-  </div>
-  <div class="quick-action" onclick="goToPage('staking')">
-    <div class="quick-action-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    </div>
-    <span class="quick-action-label">Стейкинг</span>
-  </div>
-  <div class="quick-action" onclick="goToPage('buy')">
-    <div class="quick-action-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-    </div>
-    <span class="quick-action-label">Купить</span>
-  </div>
-  <div class="quick-action" onclick="goToPage('bridge')">
-    <div class="quick-action-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
-    </div>
-    <span class="quick-action-label">Мост</span>
-  </div>
-</section>
-  <!-- ASSETS -->
-  <section class="assets-section entrance entrance-d3">
-    <div class="section-header">
-      <h2 class="section-title">Активы</h2>
-      <a href="pages/market.html" class="section-link">Все <span>&rsaquo;</span></a>
-    </div>
-    <div class="asset-list">
-      <div class="asset-item reveal" onclick="goToAsset('BTC')">
-        <div class="asset-icon asset-icon-btc">&#8383;</div>
-        <div class="asset-info">
-          <div class="asset-name">Bitcoin <span class="asset-ticker">BTC</span></div>
-          <div class="asset-balance">0.142 BTC</div>
-        </div>
-        <div class="asset-price">
-          <div class="asset-price-value">$12,840</div>
-          <div class="asset-price-change up">+5.2%</div>
-        </div>
-      </div>
-      <div class="asset-item reveal" onclick="goToAsset('ETH')">
-        <div class="asset-icon asset-icon-eth">&#926;</div>
-        <div class="asset-info">
-          <div class="asset-name">Ethereum <span class="asset-ticker">ETH</span></div>
-          <div class="asset-balance">4.28 ETH</div>
-        </div>
-        <div class="asset-price">
-          <div class="asset-price-value">$8,560</div>
-          <div class="asset-price-change up">+3.8%</div>
-        </div>
-      </div>
-      <div class="asset-item reveal" onclick="goToAsset('USDT')">
-        <div class="asset-icon asset-icon-usdt">$</div>
-        <div class="asset-info">
-          <div class="asset-name">Tether <span class="asset-ticker">USDT</span></div>
-          <div class="asset-balance">2,340 USDT</div>
-        </div>
-        <div class="asset-price">
-          <div class="asset-price-value">$2,340</div>
-          <div class="asset-price-change up">+0.01%</div>
-        </div>
-      </div>
-      <div class="asset-item reveal" onclick="goToAsset('SOL')">
-        <div class="asset-icon asset-icon-sol">S</div>
-        <div class="asset-info">
-          <div class="asset-name">Solana <span class="asset-ticker">SOL</span></div>
-          <div class="asset-balance">18.5 SOL</div>
-        </div>
-        <div class="asset-price">
-          <div class="asset-price-value">$1,107</div>
-          <div class="asset-price-change down">-1.2%</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CHART -->
-  <section class="chart-section reveal">
+  <div class="chart-section entrance entrance-d2">
     <div class="chart-card">
       <div class="chart-header">
-        <div class="chart-asset">
-          <div class="chart-asset-icon">&#8383;</div>
-          <div>
-            <div class="chart-asset-name">Bitcoin</div>
-            <div class="chart-asset-price">$90,426.50</div>
-          </div>
-        </div>
         <div class="chart-periods">
           <button class="chart-period" onclick="setPeriod(this,'1H')">1Ч</button>
           <button class="chart-period" onclick="setPeriod(this,'1D')">1Д</button>
@@ -179,101 +62,72 @@
         <div class="chart-tooltip" id="chartTooltip"></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- TRANSACTIONS -->
-  <section class="tx-section reveal">
+  <div style="padding:0 20px 20px;display:flex;gap:12px;" class="entrance entrance-d3">
+    <button class="balance-btn balance-btn-primary" style="flex:1;background:var(--green-600);color:#fff;" onclick="openSheet('send')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Отправить
+    </button>
+    <button class="balance-btn balance-btn-secondary" style="flex:1;background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);" onclick="openSheet('receive')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/><line x1="21" y1="21" x2="3" y2="21"/></svg>
+      Получить
+    </button>
+  </div>
+
+  <section style="padding-bottom:24px;">
     <div class="section-header">
-      <h2 class="section-title">История</h2>
-      <a href="pages/history.html" class="section-link">Все <span>&rsaquo;</span></a>
+      <h2 class="section-title">Статистика</h2>
     </div>
-    <div class="tx-list">
-      <div class="tx-item" onclick="showTxDetail('tx1')">
-        <div class="tx-icon tx-icon-in">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/></svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-title">Получено BTC</div>
-          <div class="tx-subtitle">От 0x7a3...f2e1</div>
-        </div>
-        <div class="tx-amount">
-          <div class="tx-amount-value in">+0.05 BTC</div>
-          <div class="tx-time">2 мин назад</div>
-        </div>
+    <div style="padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="stat-card">
+        <div class="stat-number" id="assetBalance">0.142</div>
+        <div class="stat-label">Баланс</div>
       </div>
-      <div class="tx-item" onclick="showTxDetail('tx2')">
-        <div class="tx-icon tx-icon-out">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 11 12 6 17 11"/><polyline points="12 6 12 16"/></svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-title">Отправлено ETH</div>
-          <div class="tx-subtitle">На 0x9b2...a4c3</div>
-        </div>
-        <div class="tx-amount">
-          <div class="tx-amount-value out">-1.2 ETH</div>
-          <div class="tx-time">15 мин назад</div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-number" id="assetValue">$12,840</div>
+        <div class="stat-label">Стоимость</div>
       </div>
-      <div class="tx-item" onclick="showTxDetail('tx3')">
-        <div class="tx-icon tx-icon-swap">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-title">Обмен USDT &rarr; SOL</div>
-          <div class="tx-subtitle">Через Jupiter</div>
-        </div>
-        <div class="tx-amount">
-          <div class="tx-amount-value out">-500 USDT</div>
-          <div class="tx-time">1 ч назад</div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-number">$1.78T</div>
+        <div class="stat-label">Капитализация</div>
       </div>
-      <div class="tx-item" onclick="showTxDetail('tx4')">
-        <div class="tx-icon tx-icon-in">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"/><polyline points="12 18 12 8"/></svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-title">Награда стейкинга</div>
-          <div class="tx-subtitle">Solana Validator</div>
-        </div>
-        <div class="tx-amount">
-          <div class="tx-amount-value in">+0.8 SOL</div>
-          <div class="tx-time">3 ч назад</div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-number">$42B</div>
+        <div class="stat-label">Объём 24ч</div>
       </div>
     </div>
   </section>
 
   <div class="nav-spacer"></div>
-
 </div>
 
-<!-- BOTTOM NAVIGATION -->
 <nav class="bottom-nav">
-  <a href="index.html" class="nav-item active" data-tab="wallet">
+  <a href="../index.html" class="nav-item active" data-tab="wallet">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
     </div>
     <span>Кошелёк</span>
   </a>
-  <a href="pages/market.html" class="nav-item" data-tab="market">
+  <a href="market.html" class="nav-item" data-tab="market">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
     </div>
     <span>Рынок</span>
   </a>
-  <a href="pages/swap.html" class="nav-item" data-tab="swap">
+  <a href="swap.html" class="nav-item" data-tab="swap">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4-4"/><path d="M17 14H3l4 4"/></svg>
     </div>
     <span>Обмен</span>
   </a>
-  <a href="pages/discover.html" class="nav-item" data-tab="discover">
+  <a href="discover.html" class="nav-item" data-tab="discover">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
     </div>
     <span>Обзор</span>
   </a>
-  <a href="pages/profile.html" class="nav-item" data-tab="profile">
+  <a href="profile.html" class="nav-item" data-tab="profile">
     <div class="nav-item-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
@@ -281,7 +135,7 @@
   </a>
 </nav>
 
-<!-- ACTION SHEET MODAL -->
+<!-- ACTION SHEET -->
 <div class="overlay" id="actionSheet">
   <div class="overlay-backdrop" onclick="closeSheet()"></div>
   <div class="sheet" id="sheetPanel">
@@ -292,9 +146,232 @@
   </div>
 </div>
 
-<!-- TOAST CONTAINER -->
-<div id="toastContainer"></div>
+<script>
+// ===== ДАННЫЕ АССЕТОВ =====
+const assetData = {
+  BTC: { name: 'Bitcoin', icon: '&#8383;', price: '$90,426.50', balance: '0.142', value: '$12,840', color: 'asset-icon-btc' },
+  ETH: { name: 'Ethereum', icon: '&#926;', price: '$4,520.00', balance: '4.28', value: '$8,560', color: 'asset-icon-eth' },
+  USDT: { name: 'Tether', icon: '$', price: '$1.00', balance: '2,340', value: '$2,340', color: 'asset-icon-usdt' },
+  SOL: { name: 'Solana', icon: 'S', price: '$198.00', balance: '18.5', value: '$1,107', color: 'asset-icon-sol' }
+};
 
-<script src="assets/app.js"></script>
+function initAsset() {
+  const params = new URLSearchParams(window.location.search);
+  const coin = params.get('coin') || 'BTC';
+  const data = assetData[coin];
+  if (!data) return;
+
+  document.getElementById('assetTitle').textContent = data.name;
+  document.getElementById('assetPrice').textContent = data.price;
+  document.getElementById('assetBalance').textContent = data.balance;
+  document.getElementById('assetValue').textContent = data.value;
+
+  const icon = document.getElementById('assetIcon');
+  icon.innerHTML = data.icon;
+  icon.className = 'asset-icon ' + data.color;
+  icon.style.cssText = 'width:64px;height:64px;font-size:28px;margin:0 auto 16px;';
+}
+
+// ===== ДАННЫЕ ДЛЯ ГРАФИКА =====
+const chartData = {
+  '1H': [89400,89600,89200,89800,90100,89900,90300,90500,90200,90800,91000,90700,91200,91400,91100,91600,91800,91500,92000,92200,91900,92400,90426],
+  '1D': [87200,87800,88500,88100,88900,89500,89100,89800,90400,90000,90700,91200,90800,91500,92000,91600,92200,91800,92500,93000,92600,93200,90426],
+  '1W': [82000,83500,84800,84200,85600,86900,86200,87500,88800,88100,89400,90700,90000,91300,92600,91900,93200,92500,93800,94500,93800,95100,90426],
+  '1M': [68000,69500,71200,70800,72500,74200,73800,75500,77200,76800,78500,80200,79800,81500,83200,82800,84500,86200,85800,87500,89200,88800,90426],
+  '1Y': [42000,43500,44800,46200,45500,47800,49200,48500,50800,52200,51500,53800,55200,54500,56800,58200,57500,59800,61200,60500,62800,64200,90426]
+};
+
+let currentPeriod = '1W';
+
+function renderChart(period) {
+  const data = chartData[period] || chartData['1W'];
+  const width = 370, height = 180, padding = 10;
+  const min = Math.min(...data) * 0.998;
+  const max = Math.max(...data) * 1.002;
+  const range = max - min;
+
+  const points = data.map((v, i) => {
+    const x = padding + (i / (data.length - 1)) * (width - padding * 2);
+    const y = height - padding - ((v - min) / range) * (height - padding * 2);
+    return [x, y];
+  });
+
+  function catmullRom(p0, p1, p2, p3, t) {
+    const v0x = (p2[0] - p0[0]) * 0.5;
+    const v1x = (p3[0] - p1[0]) * 0.5;
+    const v0y = (p2[1] - p0[1]) * 0.5;
+    const v1y = (p3[1] - p1[1]) * 0.5;
+    const t2 = t * t, t3 = t2 * t;
+    return [
+      (2*t3 - 3*t2 + 1)*p1[0] + (t3 - 2*t2 + t)*v0x + (-2*t3 + 3*t2)*p2[0] + (t3 - t2)*v1x,
+      (2*t3 - 3*t2 + 1)*p1[1] + (t3 - 2*t2 + t)*v0y + (-2*t3 + 3*t2)*p2[1] + (t3 - t2)*v1y
+    ];
+  }
+
+  let lineD = 'M' + points[0][0] + ',' + points[0][1];
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[Math.max(0, i - 1)];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[Math.min(points.length - 1, i + 2)];
+    for (let t = 0; t < 1; t += 0.1) {
+      const pt = catmullRom(p0, p1, p2, p3, t);
+      lineD += ' L' + pt[0].toFixed(1) + ',' + pt[1].toFixed(1);
+    }
+    lineD += ' L' + p2[0] + ',' + p2[1];
+  }
+
+  const areaD = lineD + ' L' + (width-padding) + ',' + height + ' L' + padding + ',' + height + ' Z';
+
+  const lineEl = document.getElementById('chartLine');
+  const areaEl = document.getElementById('chartArea');
+  if (!lineEl || !areaEl) return;
+
+  lineEl.setAttribute('d', lineD);
+  areaEl.setAttribute('d', areaD);
+
+  const len = lineEl.getTotalLength ? lineEl.getTotalLength() : 800;
+  lineEl.style.strokeDasharray = len;
+  lineEl.style.strokeDashoffset = len;
+  lineEl.style.animation = 'none';
+  void lineEl.offsetHeight;
+  lineEl.style.animation = 'drawLine 1.2s cubic-bezier(0.4,0,0.2,1) forwards';
+}
+
+function setPeriod(btn, period) {
+  document.querySelectorAll('.chart-period').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentPeriod = period;
+  renderChart(period);
+}
+
+// ===== ВЗАИМОДЕЙСТВИЕ С ГРАФИКОМ =====
+function initChartInteraction() {
+  const container = document.getElementById('chartContainer');
+  const tooltip = document.getElementById('chartTooltip');
+  const dot = document.getElementById('chartDot');
+  if (!container || !tooltip || !dot) return;
+
+  function updateTooltip(clientX) {
+    const rect = container.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const data = chartData[currentPeriod] || chartData['1W'];
+    const idx = Math.min(Math.max(0, Math.round((x / rect.width) * (data.length - 1))), data.length - 1);
+    const val = data[idx];
+
+    tooltip.textContent = '$' + val.toLocaleString();
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = '50px';
+    tooltip.style.opacity = '1';
+
+    const path = document.getElementById('chartLine');
+    if (path && path.getPointAtLength) {
+      try {
+        const len = path.getTotalLength();
+        const targetLen = (x / rect.width) * len;
+        const p = path.getPointAtLength(Math.max(0, Math.min(len, targetLen)));
+        dot.setAttribute('cx', p.x);
+        dot.setAttribute('cy', p.y);
+        dot.style.opacity = '1';
+      } catch(e) {}
+    }
+  }
+
+  container.addEventListener('mousemove', (e) => updateTooltip(e.clientX));
+  container.addEventListener('mouseleave', () => {
+    tooltip.style.opacity = '0';
+    dot.style.opacity = '0';
+  });
+  container.addEventListener('touchstart', (e) => { if (e.touches.length > 0) updateTooltip(e.touches[0].clientX); }, { passive: true });
+  container.addEventListener('touchmove', (e) => { if (e.touches.length > 0) updateTooltip(e.touches[0].clientX); }, { passive: true });
+  container.addEventListener('touchend', () => { tooltip.style.opacity = '0'; dot.style.opacity = '0'; });
+}
+
+// ===== SHEET =====
+const sheetConfigs = {
+  send: { title: 'Отправить', inputs: ['Адрес получателя', 'Сумма'] },
+  receive: { title: 'Получить', inputs: ['Ваш адрес кошелька', 'Сумма (опционально)'] }
+};
+
+function openSheet(type) {
+  const overlay = document.getElementById('actionSheet');
+  const titleEl = document.getElementById('sheetTitle');
+  const contentEl = document.getElementById('sheetContent');
+  if (!overlay || !titleEl || !contentEl) return;
+
+  const config = sheetConfigs[type] || sheetConfigs.send;
+  titleEl.textContent = config.title;
+
+  let inputsHtml = '';
+  config.inputs.forEach((ph, i) => {
+    inputsHtml += '<input type="text" class="sheet-input" placeholder="' + ph + '" id="sheetInput' + i + '">';
+  });
+  contentEl.innerHTML = inputsHtml + '<button class="sheet-btn" onclick="confirmAction()">Подтвердить</button>';
+
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSheet() {
+  const overlay = document.getElementById('actionSheet');
+  if (overlay) overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function confirmAction() {
+  const btn = document.querySelector('.sheet-btn');
+  if (!btn) return;
+  btn.textContent = '✓ Успешно';
+  btn.classList.add('success');
+  setTimeout(() => closeSheet(), 800);
+}
+
+function showToast(message) {
+  const container = document.createElement('div');
+  container.className = 'toast-custom';
+  container.textContent = message;
+  document.body.appendChild(container);
+  setTimeout(() => container.remove(), 2200);
+}
+
+function initSheetSwipe() {
+  const sheetPanel = document.getElementById('sheetPanel');
+  if (!sheetPanel) return;
+  let startY = 0, currentY = 0;
+  sheetPanel.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+    sheetPanel.style.transition = 'none';
+  }, { passive: true });
+  sheetPanel.addEventListener('touchmove', (e) => {
+    currentY = e.touches[0].clientY;
+    const diff = currentY - startY;
+    if (diff > 0) sheetPanel.style.transform = 'translateY(' + diff + 'px)';
+  }, { passive: true });
+  sheetPanel.addEventListener('touchend', () => {
+    const diff = currentY - startY;
+    sheetPanel.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+    if (diff > 80) {
+      closeSheet();
+    } else {
+      sheetPanel.style.transform = 'translateY(0)';
+    }
+    setTimeout(() => { sheetPanel.style.transform = ''; }, 300);
+  });
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initAsset();
+  renderChart('1W');
+  initChartInteraction();
+  initSheetSwipe();
+});
+
+// ===== SCROLL REVEAL =====
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
 </body>
 </html>
